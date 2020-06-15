@@ -1,0 +1,62 @@
+public class ValidParentheses {
+    private int top = -1;
+    private int strSize = 0;
+    private char [] st = null;
+    public static void main(String[] args)
+    {
+        ValidParentheses valid = new ValidParentheses();
+        System.out.println("Is String valid:"+valid.isValid("(](](]"));
+    }
+    public boolean isValid(String s)
+    {
+        strSize = s.length();
+        st = new char[strSize];
+        boolean isValid = true;
+        //traverse at each character of the string
+
+            for (int index = 0; index < strSize; index++) {
+                char ch = s.charAt(index);
+
+                if ((ch == '(') || (ch == '{') || (ch == '[')) {
+                    //insert the element onto stack
+                    push(ch);
+                } else if (((ch == ')') && (pop() != '(')) || ((ch == '}') && (pop() != '{')) || ((ch == ']') && (pop() != '['))) {
+                    //pop out element from stack
+                    isValid = false;
+                    break;
+                }
+
+            }
+        if(top == -1 && isValid) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    public void push(char ch)
+    {
+        if(top == strSize-1)
+        {
+            System.out.println("Stack full");
+        }
+        else
+        {
+            st[++top] = ch;
+        }
+    }
+    public char pop()
+    {
+        char ch = 0;
+        if(top>=0)
+        {
+            ch = st[top];
+            top--;
+        }
+        return ch;
+
+
+    }
+
+}
